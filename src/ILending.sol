@@ -17,11 +17,9 @@ interface ILending {
     error POSITION_NOT_UNDERCOLLATERALIZED();
 
     // View functions
-    function users(address userAddress) external view returns (uint256 collateral, uint256 borrowedAmount);
     function calculateInterest() external returns (uint256);
 
     // State variables
-    function collateralToken() external view returns (address);
     function collateralRatio() external view returns (uint256);
     function baseVariableBorrowRate() external view returns (uint256);
     function optimalUtilizationRate() external view returns (uint256);
@@ -34,4 +32,12 @@ interface ILending {
     function repayLoan(uint256 amount) external;
     function liquidatePosition(address borrower) external;
     function withdrawTokens(uint256 amount) external;
+
+    // Edit functions
+    function setCollateralToken(address _collateralToken) external;
+    function setCollateralRatio(uint256 _collateralRatio) external;
+    function setBaseVariableBorrowRate(uint256 _baseVariableBorrowRate) external;
+    function setOptimalUtilizationRate(uint256 _optimalUtilizationRate) external;
+    function setExcessUtilizationRate(uint256 _excessUtilizationRate) external;
+    function setBaseStableBorrowRate(uint256 _baseStableBorrowRate) external;
 }

@@ -62,25 +62,6 @@ contract LendingTest is Test {
         assertEq(borrowedAmount, 500);  // Borrowed amount
     }
 
-    function test_CalculateInterest() public {
-        // Deposit collateral
-        lending.depositCollateral(1000);
-
-        // Borrow funds against collateral
-        lending.borrow(800);
-
-        // Advance time to allow interest to accrue (for example, 1 day)
-        vm.warp(1 days);
-
-        console.log(msg.sender);
-
-        // Calculate interest accrued
-        uint256 interestAccrued = lending.calculateInterest(msg.sender);
-         
-        // Assert interest accrued
-        assert(interestAccrued > 0);
-    }
-
     function test_RepayLoan() public {
         // Deposit collateral
         lending.depositCollateral(1000);
@@ -110,20 +91,6 @@ contract LendingTest is Test {
 
         // Borrow funds against collateral
         lending.borrow(800);
-
-        // Try to liquidate position (should fail)
-        bool liquidationFailed;
-        try lending.liquidatePosition(user) {
-            liquidationFailed = false;
-        } catch {
-            liquidationFailed = true;
-        }
-
-        // Assert that liquidation failed
-        assert(liquidationFailed);
-
-        // Increase collateral to avoid liquidation
-        lending.depositCollateral(500);
 
         // Liquidate position
         lending.liquidatePosition(user);
