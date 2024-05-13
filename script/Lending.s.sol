@@ -12,7 +12,7 @@ contract LendingDeploy is Script {
         vm.startBroadcast();
 
         // Deploy Mock ERC20 token for collateral
-        MockToken collateralToken = new MockToken();
+        MockToken collateralToken = new MockToken("MockToken","MTK",msg.sender);
         console.log("Collateral token deployed at:", address(collateralToken));
 
         // Deploy Lending contract with the collateral token address
